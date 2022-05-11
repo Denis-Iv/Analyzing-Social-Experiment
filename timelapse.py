@@ -12,11 +12,11 @@ NUM_QUADRO = 3168
 
 max_range = NUM_SINGLE + NUM_DOUBLE + NUM_QUADRO
 now = datetime.now().strftime("%d%H%M%S")
-video_path =f'..\\data\\output\\TL-{FPS}-{FRAME_TO_USE}-{now}.mp4' 
+video_path =f'output\\TL-{FPS}-{FRAME_TO_USE}-{now}.mp4' 
 stitched_images_path = '..\\data\\images\\stitched'
 
-if not os.path.exists('..\\data\\output'):
-    os.mkdir('..\\data\\output')
+if not os.path.exists('output'):
+    os.mkdir('output')
 
 frame = cv2.imread(f'{stitched_images_path}\\0.png')
 height, width, _ = frame.shape
