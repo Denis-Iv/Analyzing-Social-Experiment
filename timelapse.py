@@ -11,7 +11,7 @@ NUM_DOUBLE = 2723
 NUM_QUADRO = 3168
 
 max_range = NUM_SINGLE + NUM_DOUBLE + NUM_QUADRO
-now = datetime.now().strftime("%d%H%M")
+now = datetime.now().strftime('%H%M%d')
 video_path =f'output\\TL-{FPS}-{FRAME_TO_USE}-{now}.mp4' 
 stitched_images_path = 'data\\images\\stitched'
 
