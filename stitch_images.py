@@ -9,18 +9,18 @@ NUM_DOUBLE = 2723
 NUM_QUADRO = 3168
 
 max_range = NUM_SINGLE + NUM_DOUBLE + NUM_QUADRO
-stitched_images_path = '..\\data\\images\\stitched'
+stitched_images_path = 'data\\images\\stitched'
 
 if not os.path.exists(stitched_images_path):
     os.mkdir(stitched_images_path)
 
-single_images_0_path = '..\\data\\images\\images_single'
-double_images_0_path = '..\\data\\images\\images_double\\0'
-double_images_1_path = '..\\data\\images\\images_double\\1'
-quadro_images_0_path = '..\\data\\images\\images_quadro\\0'
-quadro_images_1_path = '..\\data\\images\\images_quadro\\1'
-quadro_images_2_path = '..\\data\\images\\images_quadro\\2'
-quadro_images_3_path = '..\\data\\images\\images_quadro\\3'
+single_images_0_path = 'data\\images\\images_single'
+double_images_0_path = 'data\\images\\images_double\\0'
+double_images_1_path = 'data\\images\\images_double\\1'
+quadro_images_0_path = 'data\\images\\images_quadro\\0'
+quadro_images_1_path = 'data\\images\\images_quadro\\1'
+quadro_images_2_path = 'data\\images\\images_quadro\\2'
+quadro_images_3_path = 'data\\images\\images_quadro\\3'
 
 single_images_0_list = sorted([img for img in os.listdir(single_images_0_path)])
 double_images_0_list = sorted([img for img in os.listdir(double_images_0_path)])
