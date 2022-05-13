@@ -1,0 +1,22 @@
+font.size : 25
+font.family : serif
+font.weight : normal
+
+axes.titlesize : 30
+axes.titlepad : 40
+axes.labelsize : 25
+axes.labelpad : 30
+axes.facecolor : DCDCDC
+axes.grid : True
+axes.edgecolor : black
+axes.prop_cycle : cycler(color=['89A3D5'])
+axes.axisbelow : True
+
+xtick.labelsize : 16
+ytick.labelsize : 16
+
+grid.color : white
+grid.linestyle : solid
+
+figure.figsize : 25,10
+figure.facecolor : E6E6E6
