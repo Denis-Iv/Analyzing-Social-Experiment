@@ -9,7 +9,7 @@ NUM_DOUBLE = 2723
 NUM_QUADRO = 3168
 
 max_range = NUM_SINGLE + NUM_DOUBLE + NUM_QUADRO
-stitched_images_path = 'data\\stitched'
+stitched_images_path = 'data\\images_stitched'
 
 if not os.path.exists(stitched_images_path):
     os.mkdir(stitched_images_path)
