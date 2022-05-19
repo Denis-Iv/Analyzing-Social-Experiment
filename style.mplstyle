@@ -18,5 +18,5 @@ ytick.labelsize : 16
 grid.color : white
 grid.linestyle : solid
 
-figure.figsize : 25,10
+figure.figsize : 20,10
 figure.facecolor : E6E6E6
