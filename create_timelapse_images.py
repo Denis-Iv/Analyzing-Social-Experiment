@@ -5,10 +5,10 @@ import os
 
 TIMESTAMP_MAX = 300589892
 OFFSET_MS = 0
-SKIP_MS = 35000
+DELTA = 35000
 
 ddf = dd.read_parquet('data\\data_split-coords', engine='pyarrow')
-out_img_path = 'data\\images_from_points'
+out_img_path = 'data\\images_timelapse'
 
 if not os.path.exists(out_img_path):
     os.mkdir(out_img_path)
@@ -53,7 +53,7 @@ row_iterator = ddf.itertuples()
 row = next(row_iterator)
 
 frame_no = 0
-for ms in range(OFFSET_MS, TIMESTAMP_MAX, SKIP_MS):
+for ms in range(OFFSET_MS, TIMESTAMP_MAX, DELTA):
     while row.timestamp <= ms:
         img[row.y, row.x] = colors_dict[row.pixel_color]
         try:
