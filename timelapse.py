@@ -3,8 +3,7 @@ from datetime import datetime
 import cv2
 import re
 
-FPS = 60
-
+fps = 60
 now = datetime.now().strftime('%d%H%M')
 video_path = f'output\\temp\\timelapse_original.mp4' 
 source_images = 'data\\images_from_points'
@@ -15,7 +14,7 @@ if not os.path.exists('output'):
 frame = cv2.imread(f'{source_images}\\0.png')
 height, width, _ = frame.shape
 fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-video = cv2.VideoWriter(video_path, fourcc, FPS, (width,height))
+video = cv2.VideoWriter(video_path, fourcc, fps, (width,height))
 
 def num_sort(string):
     return list(map(int, re.findall(r'\d+', string)))[0]
@@ -29,5 +28,5 @@ def create_timelapse(video, images_path):
           
 create_timelapse(video, source_images)
 
-video.write_videofile(video_path)
+video.release()
 cv2.destroyAllWindows()
