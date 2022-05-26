@@ -6,7 +6,7 @@ import re
 FPS = 60
 
 now = datetime.now().strftime('%d%H%M')
-video_path = f'output\\TL-{FPS}-{now}.mp4' 
+video_path = f'output\\temp\\timelapse_original.mp4' 
 source_images = 'data\\images_from_points'
 
 if not os.path.exists('output'):
