@@ -5,10 +5,13 @@ import re
 
 fps = 60
 video_path = 'output\\temp\\timelapse_original.mp4' 
-source_images = 'data\\images\\timelapse_masked'
+source_images = 'data\\images_timelapse'
 
 if not os.path.exists('output'):
     os.mkdir('output')
+
+if not os.path.exists('output\\temp'):
+    os.mkdir('output\\temp')
 
 frame = cv2.imread(f'{source_images}\\0.png')
 height, width, _ = frame.shape
