@@ -5,13 +5,51 @@ import os
 
 TIMESTAMP_MAX = 300589892
 OFFSET_MS = 0
-DELTA = 35000
+DELTA = 40000
+
+def images_difference(images):
+    mask = np.zeros((images[0].shape[0], images[0].shape[1]), dtype=np.uint8)
+    prev = images[0]
+
+    for i in range(1, len(images)):
+        mask = cv2.bitwise_or(mask, image_difference_mask(prev, images[i]))
+        prev = images[i]
+
+    return map_by_layer(images[-1], lambda x: x // 3, np.logical_not(mask))
+
+def image_difference_mask(prev, curr):
+    difference = cv2.subtract(prev, curr)
+    b, g, r = cv2.split(difference)
+    (_, mask) = cv2.threshold(cv2.bitwise_or(b, cv2.bitwise_or(g, r)), 1, 255, cv2.THRESH_BINARY)
+
+    return mask
+
+def map_by_layer(image, f, mask):
+    mask_3d = np.zeros((mask.shape[0], mask.shape[1], 3))
+
+    mask_3d[:, :, 0] = mask
+    mask_3d[:, :, 1] = mask
+    mask_3d[:, :, 2] = mask
+
+    return np.where(mask_3d, f(image), image)
+
+def image_difference(prev, curr):
+    mask = image_difference_mask(prev, curr)
+
+    return cv2.bitwise_and(curr, curr, mask=mask)
 
 ddf = dd.read_parquet('data\\data_split-coords', engine='pyarrow')
-out_img_path = 'data\\images_timelapse'
+out_raw_path = 'data\\images\\timelapse_raw'
+out_masked_path = 'data\\images\\timelapse_masked'
 
-if not os.path.exists(out_img_path):
-    os.mkdir(out_img_path)
+if not os.path.exists('data\\images'):
+    os.mkdir('data\\images')
+
+if not os.path.exists(out_raw_path):
+    os.mkdir(out_raw_path)
+
+if not os.path.exists(out_masked_path):
+    os.mkdir(out_masked_path)
 
 colors_dict = {
     0: (0, 0, 0),     
@@ -53,6 +91,7 @@ row_iterator = ddf.itertuples()
 row = next(row_iterator)
 
 frame_no = 0
+next_img = []
 for ms in range(OFFSET_MS, TIMESTAMP_MAX, DELTA):
     while row.timestamp <= ms:
         img[row.y, row.x] = colors_dict[row.pixel_color]
@@ -61,5 +100,13 @@ for ms in range(OFFSET_MS, TIMESTAMP_MAX, DELTA):
         except StopIteration:
             break
 
-    cv2.imwrite(f'{out_img_path}\\{frame_no}.png', img)
+    cv2.imwrite(f'{out_raw_path}\\{frame_no}.png', img)
+
+    next_img.append(img)
+
+    if len(next_img) == 5:        
+        masked_img = images_difference(next_img)
+        cv2.imwrite(f'{out_masked_path}\\{frame_no}.png', masked_img)
+        del next_img[0]
+
     frame_no += 1

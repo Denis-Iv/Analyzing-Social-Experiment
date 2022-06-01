@@ -1,12 +1,11 @@
 import os
-from datetime import datetime 
 import cv2
+from moviepy.editor import VideoFileClip
 import re
 
 fps = 60
-now = datetime.now().strftime('%d%H%M')
-video_path = f'output\\temp\\timelapse_original.mp4' 
-source_images = 'data\\images_from_points'
+video_path = 'output\\temp\\timelapse_original.mp4' 
+source_images = 'data\\images\\timelapse_masked'
 
 if not os.path.exists('output'):
     os.mkdir('output')
@@ -30,3 +29,6 @@ create_timelapse(video, source_images)
 
 video.release()
 cv2.destroyAllWindows()
+
+clip = VideoFileClip(video_path)
+clip.write_videofile('output\\timelapse_optimized.mp4')
