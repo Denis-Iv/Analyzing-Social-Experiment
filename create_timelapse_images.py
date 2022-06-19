@@ -3,9 +3,9 @@ import dask.dataframe as dd
 import cv2
 import os
 
-TIMESTAMP_MAX = 300589892
-OFFSET_MS = 0
-DELTA = 40000
+TIMESTAMP_MAX = 300589892 # Максимален таймпстамп в милисекунди, които трябва да се превърнат в изображения
+OFFSET_MS = 0 # Колко да е таймстампът за първото изображение
+DELTA = 40000 # През колко милисекунди да се създава изображение
 
 ddf = dd.read_parquet('data\\data_split-coords', engine='pyarrow')
 out_img_path = 'data\\images_timelapse'
@@ -14,6 +14,7 @@ if not os.path.exists(out_img_path):
     os.mkdir(out_img_path)
 
 colors_dict = {
+    # key: (B, G, R) 
     0: (0, 0, 0),     
     1: (111, 117, 0),  
     2: (170, 158, 0), 
@@ -54,6 +55,7 @@ row = next(row_iterator)
 
 frame_no = 0
 next_img = []
+
 for ms in range(OFFSET_MS, TIMESTAMP_MAX, DELTA):
     while row.timestamp <= ms:
         img[row.y, row.x] = colors_dict[row.pixel_color]
