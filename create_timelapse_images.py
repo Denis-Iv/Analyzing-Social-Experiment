@@ -5,7 +5,7 @@ import os
 
 TIMESTAMP_MAX = 300589892 # Максимален таймпстамп в милисекунди, които трябва да се превърнат в изображения
 OFFSET_MS = 0 # Колко да е таймстампът за първото изображение
-DELTA = 40000 # През колко милисекунди да се създава изображение
+DELTA = 70000 # През колко милисекунди да се създава изображение
 
 ddf = dd.read_parquet('data\\data_split-coords', engine='pyarrow')
 out_img_path = 'data\\images_timelapse'
